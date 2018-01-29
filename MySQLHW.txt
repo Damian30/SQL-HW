@@ -68,7 +68,13 @@ GROUP BY last_name ASC;
 ```
 #4b)*List last names of actors and the number of actors who have that last name, but only for names that are shared by at least two actors.*
 ```
+SELECT last_name,count(last_name) as number_of_actors
 
+FROM actor
+
+GROUP BY last_name
+
+HAVING count(distinct first_name) >= 2;
 
 #4c)*Oh, no! The actor HARPO WILLIAMS was accidentally entered in the actor table as GROUCHO WILLIAMS, the name of Harpo's second cousin's husband's yoga teacher. Write a query to fix the record.*
 ```
@@ -166,7 +172,7 @@ FROM language
 WHERE film_id IN
   
 (
-    SELECT film_id
+  SELECT film_id
     
 FROM film
     
@@ -252,7 +258,8 @@ JOIN rental
 
 USING (inventory_id)
 
-group by customer_id desc;
+group by customer_id 
+ORDER BY most_rented desc;
 ```
 #7f) Write a query to display how much business, in dollars, each store brought in.
 
@@ -315,7 +322,10 @@ JOIN payment
 
 USING (rental_id)
 
-GROUP BY name;
+GROUP BY name
+ORDER BY gross_revenue DESC
+
+LIMIT 0, 5;
 ```
 #8a) *In your new role as an executive, you would like to have an easy way of viewing the Top five genres by gross revenue.*
  #Use the solution from the problem above to create a view. If you haven't solved 7h, you can substitute another query to create a view.
@@ -343,7 +353,10 @@ JOIN payment
 
 USING (rental_id)
 
-GROUP BY name;
+GROUP BY name
+ORDER BY gross_revenue DESC
+
+LIMIT 0, 5;
 ```
 
 #* 8b. How would you display the view that you created in 8a?
